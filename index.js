@@ -111,7 +111,25 @@ async function run() {
 
 
 
-  
+    // GET API to fetch listings by category
+    app.get('/category-filtered-product/:category', async (req, res) => {
+      const category = req.params;   // same style as your ID route
+      console.log(category);
+
+      const query = { category: category.category };  // access category from req.params
+      const listings = await listingsCollection.find(query).toArray();
+      res.send(listings);
+    });
+
+
+    // GET latest 6 listings
+    app.get('/latest-listings', async (req, res) => {
+      const listings = await listingsCollection
+        .find({}).sort({ createAt: -1 }).limit(6)
+        .toArray();
+      res.send(listings);
+    });
+
 
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
