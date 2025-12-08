@@ -2,12 +2,12 @@
 ##**Live Website Link Client-side:** https://pawmart-c9875.web.app
 
 ## Features
-⦁	**Add and Manage Listings**
+⦁	Add and Manage Listings
 
-⦁	**Latest Listings**
+⦁	Latest Listings
 
-⦁	**Order Management**
+⦁	Order Management
 
-⦁	**User-Specific Listings** 
+⦁	User-Specific Listings
 
-⦁	**RESTful API** 
+⦁	RESTful API
