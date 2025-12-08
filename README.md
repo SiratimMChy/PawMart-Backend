@@ -3,7 +3,11 @@
 
 ## Features
 ⦁	**Add and Manage Listings**
+
 ⦁	**Latest Listings**
+
 ⦁	**Order Management**
+
 ⦁	**User-Specific Listings** 
+
 ⦁	**RESTful API** 
