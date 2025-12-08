@@ -19,7 +19,7 @@ const client = new MongoClient(uri, {
 
 let database, listingsCollection, orderCollection;
 
-// Connect to database once and reuse the connection
+
 async function connectDB() {
   if (!database) {
     await client.connect();
@@ -30,7 +30,7 @@ async function connectDB() {
   }
 }
 
-// Define routes OUTSIDE of any function
+
 
 app.get('/', (req, res) => {
   res.send('PawMart API is running');
@@ -66,12 +66,40 @@ app.get('/listings', async (req, res) => {
   }
 });
 
+// GET API to fetch a single listing by ID
+app.get('/listings/:id', async (req, res) => {
+  try {
+    await connectDB();
+    const { id } = req.params;
+    const query = { _id: new ObjectId(id) };
+    const listing = await listingsCollection.findOne(query);
+    res.send(listing);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 app.get('/my-listings', async (req, res) => {
   try {
     await connectDB();
     const { email } = req.query;
     const query = { email: email };
     const result = await listingsCollection.find(query).toArray();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// API to update a listing
+app.put('/update/:id', async (req, res) => {
+  try {
+    await connectDB();
+    const data = req.body;
+    const { id } = req.params;
+    const query = { _id: new ObjectId(id) };
+    const updatedListing = { $set: data };
+    const result = await listingsCollection.updateOne(query, updatedListing);
     res.send(result);
   } catch (error) {
     res.status(500).send({ error: error.message });
