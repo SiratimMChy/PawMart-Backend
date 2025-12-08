@@ -66,6 +66,18 @@ app.get('/listings', async (req, res) => {
   }
 });
 
+app.get('/my-listings', async (req, res) => {
+  try {
+    await connectDB();
+    const { email } = req.query;
+    const query = { email: email };
+    const result = await listingsCollection.find(query).toArray();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // API to delete a listing
 app.delete('/delete/:id', async (req, res) => {
   try {
